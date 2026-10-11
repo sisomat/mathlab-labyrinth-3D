@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Mathlab 3D - Labirin Matematika</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Menggunakan versi stabil dari Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -87,6 +87,98 @@
     /* Efek Layar Merah (Hukuman) */
     #damage-overlay { position: fixed; inset: 0; background: radial-gradient(circle, transparent 40%, rgba(255,0,0,0.6) 100%); opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 5; }
     #damage-overlay.active { opacity: 1; transition: opacity 0.05s; }
+
+    /* ===== Tipografi lobi ===== */
+    .sec-title, .op-card, .ch-card, .play-btn, .gr-btn { font-family: 'Nunito', ui-sans-serif, system-ui, sans-serif; }
+    .sec-title {
+      display: flex; align-items: center; gap: .6rem; margin-bottom: .6rem;
+      font-weight: 800; font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; color: #fde68a;
+    }
+    .sec-title::before, .sec-title::after { content: ''; flex: 1; height: 1px; }
+    .sec-title::before { background: linear-gradient(90deg, transparent, rgba(253,230,138,.55)); }
+    .sec-title::after  { background: linear-gradient(270deg, transparent, rgba(253,230,138,.55)); }
+
+    .op-card, .ch-card {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      margin-bottom: 0 !important; line-height: 1.1;
+    }
+    .op-card { padding: 8px 2px !important; gap: 3px; }
+    .op-sym { font-size: 1.55rem; font-weight: 900; line-height: 1; }
+    .op-lbl { font-size: .62rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; opacity: .85; }
+    .ch-card { padding: 8px 4px !important; gap: 2px; }
+    .ch-emo { font-size: 1.7rem; line-height: 1.1; }
+    .ch-name { font-size: 1rem; font-weight: 900; letter-spacing: .02em; }
+    .ch-sub { font-size: .6rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+    .gr-btn { font-weight: 900; margin-bottom: 0 !important; }
+
+    .play-btn {
+      display: flex; align-items: center; justify-content: center; gap: .75rem;
+      font-weight: 900; font-size: 1.7rem; letter-spacing: .16em;
+    }
+    .play-btn svg { width: 2.1rem; height: 2.1rem; flex: none; }
+
+    /* ===== Layar perayaan: ayam berhasil diselamatkan ===== */
+    #screen-clear { z-index: 60; background: rgba(0,0,0,.6); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); opacity: 0; transition: opacity .55s ease; font-family: 'Nunito', ui-sans-serif, system-ui, sans-serif; }
+    #screen-clear.show { opacity: 1; }
+    #screen-clear.leaving { pointer-events: none !important; }
+    #screen-game { transition: opacity .45s ease; }
+    #screen-clear .confetti-piece { position: absolute; top: -6vh; border-radius: 2px; opacity: .9; animation: confFall linear infinite; }
+    @keyframes confFall { 0% { transform: translateY(-8vh) rotate(0deg); } 100% { transform: translateY(112vh) rotate(720deg); } }
+    .clear-chicken { font-size: 5.5rem; line-height: 1; animation: chickPop .8s cubic-bezier(.2,1.5,.4,1) both, chickHop 1.1s ease-in-out .9s infinite; }
+    @keyframes chickPop { 0% { transform: scale(0) rotate(-35deg); opacity: 0; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
+    @keyframes chickHop { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-16px) rotate(5deg); } }
+    .clear-congrats {
+      margin-top: .6rem; font-weight: 900; letter-spacing: .14em; line-height: 1.05; font-size: clamp(2.4rem, 12vw, 4rem);
+      background: linear-gradient(180deg, #fff7c2 0%, #fde68a 40%, #f59e0b 100%); -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent; animation: clearUp .6s ease-out .3s both;
+    }
+    .clear-msg { margin-top: .8rem; font-size: clamp(1rem, 4.3vw, 1.6rem); font-weight: 800; color: #fff; text-wrap: balance; animation: clearUp .6s ease-out .6s both; }
+    .clear-msg b { color: #fbbf24; font-size: 1.25em; }
+    .clear-sub { margin-top: .5rem; text-wrap: balance; font-size: clamp(.95rem, 4vw, 1.3rem); font-weight: 700; color: #86efac; animation: clearUp .6s ease-out .9s both; }
+    @keyframes clearUp { 0% { opacity: 0; transform: translateY(18px); } 100% { opacity: 1; transform: translateY(0); } }
+    .clear-btn {
+      display: flex; align-items: center; justify-content: center; gap: .6rem;
+      margin-top: 1.8rem !important; width: min(18rem, 82vw); padding: .8rem 1rem !important;
+      font-family: 'Nunito', ui-sans-serif, system-ui, sans-serif; font-weight: 900; font-size: 1.45rem; letter-spacing: .14em;
+      animation: btnPop .5s cubic-bezier(.2,1.5,.4,1) 1.2s both, btnPulse 1.4s ease-in-out 1.8s infinite;
+    }
+    .clear-btn svg { width: 1.5rem; height: 1.5rem; }
+    @keyframes btnPop { 0% { opacity: 0; transform: scale(.6); } 100% { opacity: 1; transform: scale(1); } }
+    @keyframes btnPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+    /* ===== Lobi ringkas untuk layar pendek (HP) agar MULAI & footer tetap terlihat ===== */
+    @media (max-height: 720px) {
+      #screen-start { padding: .6rem !important; }
+      #screen-start .title3d { font-size: 2.6rem !important; }
+      #screen-start .quest-script { font-size: 1.65rem !important; margin-top: 0 !important; line-height: 1.1 !important; }
+      #screen-start .p3 { padding: .55rem !important; }
+      #screen-start .sec-title { margin-bottom: .4rem; }
+      #screen-start .op-card { padding: 5px 2px !important; }
+      #screen-start .op-sym { font-size: 1.3rem; }
+      #screen-start .ch-card { padding: 5px 4px !important; }
+      #screen-start .ch-emo { font-size: 1.4rem; }
+      #screen-start .gr-btn { padding-top: .3rem !important; padding-bottom: .3rem !important; }
+      #screen-start .play-btn { padding-top: .65rem !important; padding-bottom: .65rem !important; margin-top: .4rem !important; }
+      #screen-start .play-btn svg { width: 1.8rem; height: 1.8rem; }
+    }
+
+    /* ===== Tampilan pop up modern: flat, tanpa shadow ===== */
+    .p3 {
+      box-shadow: none !important;
+      background: rgba(15, 23, 42, .62) !important;
+      border: 1px solid rgba(255,255,255,.16) !important;
+      border-radius: 20px !important;
+      backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
+    }
+    .b3 {
+      box-shadow: none !important; text-shadow: none !important;
+      border: 1px solid rgba(255,255,255,.35) !important; border-radius: 14px;
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .b3:active:not(:disabled) { transform: scale(.96); box-shadow: none !important; filter: brightness(.95); }
+    .b3:disabled { cursor: not-allowed; filter: grayscale(.6); }
+    .title3d, .num3d, .quest-script { text-shadow: none !important; }
+    .hp-track { box-shadow: none !important; }
   </style>
 </head>
 <body>
@@ -99,43 +191,64 @@
   <div id="ui-layer">
     
     <!-- LOBI LAYAR AWAL -->
-    <div id="screen-start" class="pointer-events-auto absolute inset-0 flex flex-col items-center justify-center p-4 bg-black/40 backdrop-blur-sm transition-opacity duration-500 z-50">
+    <div id="screen-start" style="touch-action: pan-y;" class="pointer-events-auto absolute inset-0 flex flex-col items-center p-4 overflow-y-auto bg-black/40 backdrop-blur-sm transition-opacity duration-500 z-50">
       
-      <!-- Watermark di Bawah -->
-      <div class="absolute bottom-3 left-0 right-0 text-center text-white/60 text-xs sm:text-sm font-bold tracking-widest pointer-events-none drop-shadow-md z-0">
-        Developer By Ifan Shovi, S.Pd
-      </div>
-
-      <div class="w-full max-w-md space-y-4">
+      <div class="w-full max-w-md space-y-3 my-auto">
         <div class="text-center relative">
           <h1 class="title3d text-5xl sm:text-7xl font-black tracking-widest leading-none">MATHLAB</h1>
           <h2 class="quest-script text-3xl sm:text-5xl text-white mt-2">Labyrinth 3D</h2>
         </div>
 
-        <div class="p3 p-4 w-full text-center shadow-2xl">
-          <h3 class="text-sm font-black text-amber-200 mb-3 tracking-widest">PILIH KARAKTER</h3>
+        <div class="p3 p-3 w-full text-center">
+          <h3 class="sec-title">Pilih Kelas</h3>
+          <div class="grid grid-cols-6 gap-1.5">
+            <button onclick="setGrade(1)" id="btn-gr-1" class="gr-btn b3 c-slate py-2 text-xl">1</button>
+            <button onclick="setGrade(2)" id="btn-gr-2" class="gr-btn b3 c-slate py-2 text-xl">2</button>
+            <button onclick="setGrade(3)" id="btn-gr-3" class="gr-btn b3 c-slate py-2 text-xl">3</button>
+            <button onclick="setGrade(4)" id="btn-gr-4" class="gr-btn b3 c-slate py-2 text-xl">4</button>
+            <button onclick="setGrade(5)" id="btn-gr-5" class="gr-btn b3 c-slate py-2 text-xl">5</button>
+            <button onclick="setGrade(6)" id="btn-gr-6" class="gr-btn b3 c-slate py-2 text-xl">6</button>
+          </div>
+        </div>
+
+        <div class="p3 p-3 w-full text-center">
+          <h3 class="sec-title">Pilih Karakter</h3>
           <div class="grid grid-cols-3 gap-2">
-            <button onclick="setChar('adi')" id="btn-ch-adi" class="ch-btn b3 c-amber py-2 leading-tight"><span class="block text-2xl">👦</span><span class="block text-sm">Adi</span></button>
-            <button onclick="setChar('wiya')" id="btn-ch-wiya" class="ch-btn b3 c-slate py-2 leading-tight"><span class="block text-2xl">👧</span><span class="block text-sm">Wiya</span></button>
-            <button onclick="setChar('ata')" id="btn-ch-ata" class="ch-btn b3 c-slate py-2 leading-tight"><span class="block text-2xl">🧑</span><span class="block text-sm">Ata</span></button>
+            <button onclick="setChar('adi')" id="btn-ch-adi" class="ch-btn ch-card b3 c-amber"><span class="ch-emo">👦</span><span class="ch-name">Adi</span><span class="ch-sub">Laki-laki</span></button>
+            <button onclick="setChar('wiya')" id="btn-ch-wiya" class="ch-btn ch-card b3 c-slate"><span class="ch-emo">👧</span><span class="ch-name">Wiya</span><span class="ch-sub">Perempuan</span></button>
+            <button onclick="setChar('ata')" id="btn-ch-ata" class="ch-btn ch-card b3 c-slate"><span class="ch-emo">🧑</span><span class="ch-name">Ata</span><span class="ch-sub">Laki-laki</span></button>
           </div>
         </div>
 
-        <div class="p3 p-6 w-full text-center shadow-2xl">
-          <h3 class="text-sm font-black text-amber-200 mb-4 tracking-widest">PILIH OPERASI MATEMATIKA</h3>
+        <div class="p3 p-3 w-full text-center">
+          <h3 class="sec-title">Pilih Operasi</h3>
           <div class="grid grid-cols-4 gap-2">
-            <button onclick="setOp('all')" id="btn-op-mix" class="op-btn b3 c-amber py-3 text-xl sm:text-2xl">🎲</button>
-            <button onclick="setOp('+')" id="btn-op-add" class="op-btn b3 c-slate py-3 text-xl sm:text-2xl">➕</button>
-            <button onclick="setOp('-')" id="btn-op-sub" class="op-btn b3 c-slate py-3 text-xl sm:text-2xl">➖</button>
-            <button onclick="setOp('*')" id="btn-op-mul" class="op-btn b3 c-slate py-3 text-xl sm:text-2xl">✖️</button>
-            <button onclick="setOp('/')" id="btn-op-div" class="op-btn b3 c-slate py-3 text-xl sm:text-2xl">➗</button>
-            <button onclick="setOp('fraction')" id="btn-op-frac" class="op-btn b3 c-slate py-3 text-xl sm:text-2xl font-serif">½</button>
-            <button onclick="setOp('algebra')" id="btn-op-alg" class="op-btn b3 c-slate py-3 text-xl sm:text-2xl font-serif">𝑥</button>
-            <button onclick="setOp('decimal')" id="btn-op-dec" class="op-btn b3 c-slate py-3 text-xl sm:text-2xl font-serif">0.1</button>
+            <button onclick="setOp('all')" id="btn-op-mix" class="op-btn op-card b3 c-amber"><span class="op-sym">🎲</span><span class="op-lbl">Acak</span></button>
+            <button onclick="setOp('+')" id="btn-op-add" class="op-btn op-card b3 c-slate"><span class="op-sym">+</span><span class="op-lbl">Tambah</span></button>
+            <button onclick="setOp('-')" id="btn-op-sub" class="op-btn op-card b3 c-slate"><span class="op-sym">−</span><span class="op-lbl">Kurang</span></button>
+            <button onclick="setOp('*')" id="btn-op-mul" class="op-btn op-card b3 c-slate"><span class="op-sym">×</span><span class="op-lbl">Kali</span></button>
+            <button onclick="setOp('/')" id="btn-op-div" class="op-btn op-card b3 c-slate"><span class="op-sym">÷</span><span class="op-lbl">Bagi</span></button>
+            <button onclick="setOp('fraction')" id="btn-op-frac" class="op-btn op-card b3 c-slate"><span class="op-sym">½</span><span class="op-lbl">Pecahan</span></button>
+            <button onclick="setOp('algebra')" id="btn-op-alg" class="op-btn op-card b3 c-slate"><span class="op-sym">x</span><span class="op-lbl">Aljabar</span></button>
+            <button onclick="setOp('decimal')" id="btn-op-dec" class="op-btn op-card b3 c-slate"><span class="op-sym">0,1</span><span class="op-lbl">Desimal</span></button>
           </div>
         </div>
 
-        <button onclick="startGame()" class="b3 c-green w-full text-3xl py-4 tracking-wider mt-4 shadow-2xl">MULAI</button>
+        <button onclick="startGame()" class="play-btn b3 c-green w-full py-4 mt-4">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M6.6 6.5h10.8a4.6 4.6 0 0 1 4.5 3.8l.9 5.3a3 3 0 0 1-5.1 2.6l-2.1-2.2H8.4l-2.1 2.2a3 3 0 0 1-5.1-2.6l.9-5.3a4.6 4.6 0 0 1 4.5-3.8z"/>
+            <rect x="5.6" y="10.4" width="4.6" height="1.5" rx=".6" fill="#6ee7b7"/>
+            <rect x="7.15" y="8.85" width="1.5" height="4.6" rx=".6" fill="#6ee7b7"/>
+            <circle cx="15.4" cy="10" r="1" fill="#6ee7b7"/>
+            <circle cx="17.9" cy="12.2" r="1" fill="#6ee7b7"/>
+          </svg>
+          <span>MULAI</span>
+        </button>
+      </div>
+
+      <!-- Footer pengembang: berada di bawah konten (tidak menimpa tombol) -->
+      <div class="shrink-0 w-full text-center text-white/60 text-xs sm:text-sm font-bold tracking-widest pt-4 pb-1 pointer-events-none">
+        Developer By Ifan Shovi, S.Pd
       </div>
     </div>
 
@@ -155,14 +268,15 @@
       <div class="absolute top-2 left-1/2 transform -translate-x-1/2 pointer-events-auto flex flex-col items-center gap-1.5 w-full max-w-[320px] px-2">
         
         <!-- Panel HUD: Score, Level, HP, & Minimize Icon -->
-        <div class="p3 w-full p-2.5 flex flex-col gap-1.5 shadow-xl">
+        <div class="p3 w-full p-2.5 flex flex-col gap-1.5">
           <div class="flex justify-between items-center px-1">
             <div class="flex gap-4">
               <div class="text-lg sm:text-xl font-black text-amber-300 num3d">⭐ <span id="ui-score">0</span></div>
               <div class="text-lg sm:text-xl font-black text-white num3d">Lv <span id="ui-level">1</span></div>
+              <div id="ui-wrong" class="flex items-center gap-1 text-sm font-black" title="Kesalahan menjawab"></div>
             </div>
             <!-- Tombol Minimize Icon 3D -->
-            <button id="btn-toggle-q" onclick="toggleQuestion()" class="b3 c-indigo px-3 py-1 text-sm shadow-md !mb-0" style="margin-bottom: 0;">🙈</button>
+            <button id="btn-toggle-q" onclick="toggleQuestion()" class="b3 c-indigo px-3 py-1 text-sm !mb-0" style="margin-bottom: 0;">🙈</button>
           </div>
           <div class="flex items-center gap-2 px-1">
             <span class="text-[10px] font-black text-rose-300 leading-none">HP</span>
@@ -171,7 +285,7 @@
         </div>
 
         <!-- Panel Soal -->
-        <div id="ui-question-box" class="p3 w-full text-center shadow-xl px-4 py-2">
+        <div id="ui-question-box" class="p3 w-full text-center px-4 py-2">
           <div id="ui-question-label" class="text-[10px] sm:text-xs text-indigo-300 font-bold tracking-wider uppercase mb-1">Cari Portal:</div>
           <div id="ui-question" class="text-2xl sm:text-3xl font-black text-white num3d tracking-widest leading-none">?</div>
         </div>
@@ -182,8 +296,8 @@
       </div>
 
       <!-- Feedback Overlay Text (Benar/Salah) -->
-      <div id="pickup-toast" class="absolute left-1/2 top-[30%] -translate-x-1/2 text-xl sm:text-3xl font-black text-white opacity-0 transition-opacity duration-300 pointer-events-none z-40 whitespace-nowrap drop-shadow-[0_3px_6px_rgba(0,0,0,0.9)]"></div>
-      <div id="feedback-text" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-7xl font-black opacity-0 transition-opacity duration-300 drop-shadow-[0_8px_8px_rgba(0,0,0,1)] pointer-events-none z-50"></div>
+      <div id="pickup-toast" class="absolute left-1/2 top-[30%] -translate-x-1/2 text-xl sm:text-3xl font-black text-white opacity-0 transition-opacity duration-300 pointer-events-none z-40 whitespace-nowrap bg-black/55 backdrop-blur-md rounded-full px-5 py-1.5 border border-white/25"></div>
+      <div id="feedback-text" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-7xl font-black opacity-0 transition-opacity duration-300 pointer-events-none z-50"></div>
 
       <!-- Virtual Joystick -->
       <div id="joystick-zone" class="pointer-events-auto">
@@ -192,17 +306,33 @@
     </div>
 
     <!-- GAME OVER SCREEN -->
+    <!-- LAYAR PERAYAAN: AYAM BERHASIL DISELAMATKAN -->
+    <div id="screen-clear" class="hidden absolute inset-0 flex flex-col items-center justify-center p-6 text-center pointer-events-auto">
+      <div id="confetti" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+      <div class="clear-chicken">🐔</div>
+      <div class="clear-congrats">SELAMAT!</div>
+      <div class="clear-msg">Anda Berhasil Menyelamatkan <b id="clear-count">1</b> Ayam</div>
+      <div class="clear-sub">Yuk, Selamatkan ayam yang lain! 🐣</div>
+      <button onclick="continueAfterRescue()" class="clear-btn b3 c-green">
+        <span>LANJUT</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+
     <div id="screen-result" class="hidden absolute inset-0 flex flex-col items-center justify-center p-4 bg-black/70 backdrop-blur-sm pointer-events-auto transition-opacity duration-500 z-50">
       <div class="w-full max-w-sm flex flex-col items-center space-y-6">
-        <div class="text-7xl drop-shadow-lg mb-2">💀</div>
+        <div class="text-7xl mb-2">💀</div>
         <h2 class="title3d text-5xl font-black">GAME OVER</h2>
-        <div class="p3 p-6 w-full space-y-2 text-center shadow-2xl">
+        <div id="final-reason" class="text-rose-300 font-bold -mt-3 text-center"></div>
+        <div class="p3 p-6 w-full space-y-2 text-center">
           <div class="text-indigo-200 font-bold">Skor Akhir</div>
           <div id="final-score" class="num3d text-5xl font-black text-amber-300">0</div>
           <div class="text-indigo-200 font-bold mt-4">Level Tercapai</div>
           <div id="final-level" class="num3d text-3xl font-black text-white">1</div>
+          <div class="text-indigo-200 font-bold mt-4">Ayam Diselamatkan</div>
+          <div class="num3d text-3xl font-black text-white">🐔 <span id="final-chickens">0</span></div>
         </div>
-        <button onclick="showStart()" class="b3 c-amber w-full text-2xl py-4 mt-4 shadow-2xl">KEMBALI KE LOBI</button>
+        <button onclick="showStart()" class="b3 c-amber w-full text-2xl py-4 mt-4">KEMBALI KE LOBI</button>
       </div>
     </div>
 
@@ -212,6 +342,7 @@
   // --- KONFIGURASI GAME & STATE ---
   let selectedOp = 'all';
   let selectedChar = 'adi';
+  const WRONG_LIMIT = 3; // batas kesalahan menjawab per soal (di-reset setiap ganti soal)
   let gameState = {
     score: 0, level: 1, hp: 100, isPlaying: false,
     question: null, options: [], correctAnswer: 0,
@@ -238,6 +369,20 @@
   function playBeep(type) {
     if (!actx) actx = new AudioCtx();
     if (actx.state === 'suspended') actx.resume();
+    if (type === 'fanfare') { // nada kemenangan naik: C5 E5 G5 C6
+      const t0 = actx.currentTime;
+      [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => {
+        const o = actx.createOscillator(), g = actx.createGain();
+        o.type = 'triangle'; o.frequency.value = f;
+        o.connect(g); g.connect(actx.destination);
+        const st = t0 + i * 0.13, len = i === 3 ? 0.55 : 0.16;
+        g.gain.setValueAtTime(0.0001, st);
+        g.gain.exponentialRampToValueAtTime(0.28, st + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, st + len);
+        o.start(st); o.stop(st + len + 0.02);
+      });
+      return;
+    }
     const osc = actx.createOscillator();
     const gain = actx.createGain();
     osc.connect(gain); gain.connect(actx.destination);
@@ -267,6 +412,28 @@
     if(active) active.className = active.className.replace('c-slate', 'c-amber');
   }
 
+  function setGrade(n) {
+    selectedGrade = n;
+    document.querySelectorAll('.gr-btn').forEach(b => b.className = b.className.replace(/c-\w+/, 'c-slate'));
+    const active = document.getElementById('btn-gr-' + n);
+    if(active) active.className = active.className.replace('c-slate', 'c-amber');
+    updateOpAvailability();
+  }
+
+  // Operasi yang belum dipelajari di kelas terpilih dinonaktifkan
+  function updateOpAvailability() {
+    const map = {'all': 'btn-op-mix', '+': 'btn-op-add', '-': 'btn-op-sub', '*': 'btn-op-mul', '/': 'btn-op-div', 'fraction': 'btn-op-frac', 'algebra': 'btn-op-alg', 'decimal': 'btn-op-dec'};
+    const allowed = GRADE_OPS[selectedGrade];
+    Object.keys(map).forEach(op => {
+      const b = document.getElementById(map[op]);
+      if(!b) return;
+      const ok = op === 'all' || allowed.includes(op);
+      b.disabled = !ok;
+      b.style.opacity = ok ? '' : '0.3';
+    });
+    if(selectedOp !== 'all' && !allowed.includes(selectedOp)) setOp('all');
+  }
+
   function setChar(id) {
     selectedChar = id;
     document.querySelectorAll('.ch-btn').forEach(b => b.className = b.className.replace(/c-\w+/, 'c-slate'));
@@ -291,7 +458,7 @@
     playBeep('start'); 
     
     gameState = {
-      score: 0, level: 1, hp: 100, isPlaying: true,
+      score: 0, level: 1, hp: 100, isPlaying: true, wrong: 0,
       mazeSize: 11, cellSize: 4
     };
     targetPosition = null;
@@ -300,6 +467,10 @@
     cameraPitchOffset = Math.PI / 3; // Reset elevasi kamera saat mulai
     
     shieldHits = 0; orangePower = false;
+    chickensSaved = 0; levelPause = false;
+    clearTimeout(clearHideTimer);
+    { const ov = document.getElementById('screen-clear'); ov.classList.add('hidden'); ov.classList.remove('show', 'leaving'); }
+    document.getElementById('screen-game').style.opacity = '';
     generateMathProblem();
     buildLevel3D(false);
     updateUI();
@@ -311,6 +482,10 @@
   function updateUI() {
     document.getElementById('ui-score').innerText = gameState.score;
     document.getElementById('ui-level').innerText = gameState.level;
+    const w = gameState.wrong || 0;
+    let wh = '<span class="text-[10px] text-rose-300 tracking-wider mr-0.5">SALAH</span>';
+    for (let i = 0; i < WRONG_LIMIT; i++) wh += `<span class="${i < w ? 'text-rose-400' : 'text-white/25'}">✖</span>`;
+    document.getElementById('ui-wrong').innerHTML = wh;
     const hpBar = document.getElementById('ui-hp');
     hpBar.style.width = Math.max(0, gameState.hp) + '%';
     if(gameState.hp < 30) hpBar.classList.add('hp-danger');
@@ -333,122 +508,215 @@
   function showFeedback(text, isGood) {
     const txt = document.getElementById('feedback-text');
     txt.innerText = text;
-    txt.className = `absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl md:text-8xl font-black drop-shadow-[0_5px_10px_rgba(0,0,0,0.8)] pointer-events-none transition-opacity duration-300 z-50 px-8 py-2 border-2 border-solid rounded-3xl bg-black/25 ${isGood ? 'text-emerald-400 border-emerald-400' : 'text-rose-500 border-rose-500'}`;
+    txt.className = `absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl md:text-8xl font-black pointer-events-none transition-opacity duration-300 z-50 px-8 py-2 border-2 border-solid rounded-3xl bg-black/45 backdrop-blur-md ${isGood ? 'text-emerald-400 border-emerald-400' : 'text-rose-500 border-rose-500'}`;
     txt.classList.remove('opacity-0');
     setTimeout(() => txt.classList.add('opacity-0'), 1200);
   }
 
-  function gameOver() {
+  function gameOver(reason) {
     gameState.isPlaying = false;
     document.getElementById('final-score').innerText = gameState.score;
     document.getElementById('final-level').innerText = gameState.level;
+    document.getElementById('final-chickens').innerText = chickensSaved;
+    document.getElementById('final-reason').innerText = reason === 'wrong'
+      ? `Salah menjawab ${WRONG_LIMIT} kali pada satu soal` : 'Darah habis';
     showScreen('screen-result');
   }
 
-  // --- MATEMATIKA ---
+  // --- MATEMATIKA (menyesuaikan kelas 1-6) ---
+  let selectedGrade = 5;
+  const GRADE_OPS = {
+    1: ['+', '-'],
+    2: ['+', '-', '*', '/'],
+    3: ['+', '-', '*', '/', 'fraction'],
+    4: ['+', '-', '*', '/', 'fraction', 'algebra'],
+    5: ['+', '-', '*', '/', 'fraction', 'algebra', 'decimal'],
+    6: ['+', '-', '*', '/', 'fraction', 'algebra', 'decimal']
+  };
+  const rnd = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a;
+  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  const gcd = (a, b) => b ? gcd(b, a % b) : Math.abs(a);
+  const lcm = (a, b) => a * b / gcd(a, b);
+  const reduceFrac = (n, d) => { const g = gcd(n, d) || 1; return [n / g, d / g]; };
+  const r1 = (x) => Math.round(x * 10) / 10;
+  const r2 = (x) => Math.round(x * 100) / 100;
+
+  function fracStr(n, d, simplify) {
+    if (n === 0) return '0';
+    if (simplify) { const g = gcd(n, d); n /= g; d /= g; }
+    if (d === 1) return String(n);
+    if (n === d) return '1';
+    return n + '/' + d;
+  }
+
+  // Membuat satu soal sesuai operasi, kelas (g), dan level permainan (L)
+  function genProblem(op, g, L) {
+    L = Math.min(L, 10);
+    let a, b, ans;
+    switch (op) {
+      case '+':
+        if (g === 1) { const m = Math.min(20, 10 + L * 2); a = rnd(1, m - 1); b = rnd(1, m - a); }
+        else if (g === 2) { a = rnd(10, Math.min(80, 40 + L * 4)); b = rnd(5, 99 - a); }
+        else if (g === 3) { a = rnd(50, Math.min(700, 300 + L * 40)); b = rnd(30, 999 - a); }
+        else if (g === 4) { a = rnd(500, 4000 + L * 500); b = rnd(300, 4000 + L * 400); }
+        else if (g === 5) { a = rnd(5000, 30000 + L * 4000); b = rnd(3000, 30000 + L * 3000); }
+        else { a = rnd(20000, 200000 + L * 30000); b = rnd(10000, 200000 + L * 20000); }
+        return { q: `${a} + ${b} = ?`, ans: a + b, kind: 'int' };
+
+      case '-':
+        if (g === 1) { const m = Math.min(20, 10 + L * 2); a = rnd(2, m); b = rnd(1, a - 1); }
+        else if (g === 2) { a = rnd(20, Math.min(99, 60 + L * 4)); b = rnd(5, a - 1); }
+        else if (g === 3) { a = rnd(100, Math.min(999, 500 + L * 50)); b = rnd(20, a - 10); }
+        else if (g === 4) { a = rnd(1000, 4000 + L * 500); b = rnd(200, a - 100); }
+        else if (g === 5) { a = rnd(10000, 50000 + L * 5000); b = rnd(1000, a - 500); }
+        else { a = rnd(50000, 300000 + L * 30000); b = rnd(5000, a - 1000); }
+        return { q: `${a} - ${b} = ?`, ans: a - b, kind: 'int' };
+
+      case '*':
+        if (g === 2) { a = pick([2, 3, 4, 5, 10]); b = rnd(1, 10); }
+        else if (g === 3) { a = rnd(2, 10); b = rnd(2, 10); }
+        else if (g === 4) { a = rnd(11, Math.min(99, 25 + L * 6)); b = rnd(2, 9); }
+        else if (g === 5) {
+          if (Math.random() < 0.5) { a = rnd(101, Math.min(500, 200 + L * 25)); b = rnd(2, 9); }
+          else { a = rnd(11, 30 + L * 2); b = rnd(11, 25); }
+        } else { a = rnd(12, Math.min(99, 40 + L * 4)); b = rnd(11, 35); }
+        return { q: `${a} x ${b} = ?`, ans: a * b, kind: 'int' };
+
+      case '/':
+        if (g === 2) { b = pick([2, 3, 4, 5, 10]); ans = rnd(1, 10); }
+        else if (g === 3) { b = rnd(2, 9); ans = rnd(2, 10); }
+        else if (g === 4) { b = rnd(2, 9); ans = rnd(5, 30 + L * 3); }
+        else if (g === 5) { b = rnd(2, 12); ans = rnd(10, 40 + L * 3); }
+        else { b = rnd(2, 20); ans = rnd(10, 60 + L * 4); }
+        return { q: `${b * ans} : ${b} = ?`, ans: ans, kind: 'int' };
+
+      case 'fraction': {
+        if (g <= 4) { // penyebut sama
+          const d = g === 3 ? rnd(2, 8) : rnd(3, 12);
+          let n1 = rnd(1, d - 1), n2 = rnd(1, d - 1);
+          const plus = Math.random() > 0.5;
+          if (!plus && n1 < n2) { const t = n1; n1 = n2; n2 = t; }
+          const an = plus ? n1 + n2 : n1 - n2;
+          return { q: `${n1}/${d} ${plus ? '+' : '-'} ${n2}/${d} = ?`, ans: fracStr(an, d, false), kind: 'frac', fn: an, fd: d, simp: false };
+        }
+        if (g === 6 && Math.random() < 0.4) { // perkalian pecahan
+          const d1 = rnd(2, 6), d2 = rnd(2, 6);
+          const n1 = rnd(1, d1 - 1), n2 = rnd(1, d2 - 1);
+          const r = reduceFrac(n1 * n2, d1 * d2);
+          return { q: `${n1}/${d1} x ${n2}/${d2} = ?`, ans: fracStr(r[0], r[1], true), kind: 'frac', fn: r[0], fd: r[1], simp: true };
+        }
+        // penyebut berbeda
+        let d1 = pick([2, 3, 4, 5, 6]);
+        let d2 = pick([2, 3, 4, 6, 8, 10, 12].filter(x => x !== d1 && lcm(d1, x) <= 12));
+        let n1 = rnd(1, d1 - 1), n2 = rnd(1, d2 - 1);
+        const plus = Math.random() > 0.5;
+        const l = lcm(d1, d2);
+        let fa = n1 * (l / d1), fb = n2 * (l / d2);
+        if (!plus && fa < fb) { [n1, n2] = [n2, n1]; [d1, d2] = [d2, d1]; [fa, fb] = [fb, fa]; }
+        const r = reduceFrac(plus ? fa + fb : fa - fb, l);
+        return { q: `${n1}/${d1} ${plus ? '+' : '-'} ${n2}/${d2} = ?`, ans: fracStr(r[0], r[1], true), kind: 'frac', fn: r[0], fd: r[1], simp: true };
+      }
+
+      case 'algebra': {
+        let t;
+        if (g === 4) t = pick(['add', 'sub']);
+        else if (g === 5) t = pick(['add', 'sub', 'mul']);
+        else t = pick(['mul', 'mulAdd', 'mulSub', 'div']);
+        if (t === 'add') { ans = rnd(2, 12 + L); a = rnd(1, 10 + L); return { q: `x + ${a} = ${ans + a}`, ans, kind: 'int' }; }
+        if (t === 'sub') { ans = rnd(3, 14 + L); a = rnd(1, ans - 1); return { q: `x - ${a} = ${ans - a}`, ans, kind: 'int' }; }
+        if (t === 'mul') { ans = rnd(2, 12 + L); a = rnd(2, 9); return { q: `${a}x = ${a * ans}`, ans, kind: 'int' }; }
+        if (t === 'mulAdd') { ans = rnd(2, 12 + L); a = rnd(2, 9); const c = rnd(1, 15); return { q: `${a}x + ${c} = ${a * ans + c}`, ans, kind: 'int' }; }
+        if (t === 'mulSub') { ans = rnd(3, 12 + L); a = rnd(2, 9); const c = rnd(1, a * ans - 1); return { q: `${a}x - ${c} = ${a * ans - c}`, ans, kind: 'int' }; }
+        a = rnd(2, 9); b = rnd(2, 12);
+        return { q: `x : ${a} = ${b}`, ans: a * b, kind: 'int' };
+      }
+
+      case 'decimal': {
+        if (g === 5) {
+          let d1 = rnd(1, 40 + L * 4) / 10, d2 = rnd(1, 40 + L * 4) / 10;
+          const plus = Math.random() > 0.5;
+          if (!plus && d1 < d2) { const t = d1; d1 = d2; d2 = t; }
+          return { q: `${d1} ${plus ? '+' : '-'} ${d2} = ?`, ans: r1(plus ? d1 + d2 : d1 - d2), kind: 'dec', dp: 1 };
+        }
+        const t = rnd(1, 3);
+        if (t === 3) {
+          const d = rnd(11, 99) / 10, k = rnd(2, 9);
+          return { q: `${d} x ${k} = ?`, ans: r2(d * k), kind: 'dec', dp: 2 };
+        }
+        let d1 = rnd(10, 300 + L * 30) / 100, d2 = rnd(10, 300 + L * 30) / 100;
+        const plus = t === 1;
+        if (!plus && d1 < d2) { const x = d1; d1 = d2; d2 = x; }
+        return { q: `${d1} ${plus ? '+' : '-'} ${d2} = ?`, ans: r2(plus ? d1 + d2 : d1 - d2), kind: 'dec', dp: 2 };
+      }
+    }
+  }
+
+  // Pengecoh bilangan bulat: selisih menyesuaikan besar jawaban
+  function intDistractor(ans) {
+    const cap = Math.max(5, Math.round(Math.abs(ans) * 0.15));
+    const mags = [1];
+    for (let m = 10; m <= cap; m *= 10) mags.push(m);
+    const off = rnd(1, 9) * pick(mags);
+    return ans + (Math.random() < 0.5 ? -off : off);
+  }
+
+  // Empat pilihan jawaban unik (1 benar + 3 pengecoh)
+  function buildOptions(prob) {
+    const opts = new Set([prob.ans]);
+    let guard = 0;
+    while (opts.size < 4 && guard++ < 300) {
+      let w;
+      if (prob.kind === 'frac') {
+        if (prob.simp) {
+          const baseD = prob.fd > 1 ? prob.fd : rnd(2, 6);
+          const baseN = prob.fd > 1 ? prob.fn : prob.fn * baseD;
+          let n2 = baseN + pick([-3, -2, -1, 1, 2, 3]), d2 = baseD;
+          if (Math.random() < 0.25) { d2 = rnd(2, 8); n2 = rnd(1, d2 + 2); }
+          if (n2 < 0) continue;
+          w = fracStr(n2, d2, true);
+        } else {
+          const n2 = prob.fn + pick([-3, -2, -1, 1, 2, 3]);
+          if (n2 < 0) continue;
+          w = fracStr(n2, prob.fd, false);
+        }
+      } else if (prob.kind === 'dec') {
+        const offs = prob.dp === 1 ? [0.1, 0.2, 0.3, 0.5, 1] : [0.01, 0.05, 0.1, 0.25, 0.5, 1];
+        w = r2(prob.ans + pick(offs) * (Math.random() < 0.5 ? -1 : 1));
+        if (w < 0) continue;
+      } else {
+        w = intDistractor(prob.ans);
+        if (w < 0) continue;
+      }
+      if (w !== prob.ans) opts.add(w);
+    }
+    let extra = 1; // pengaman (hampir tidak pernah terpakai)
+    while (opts.size < 4) {
+      opts.add(prob.kind === 'frac' ? `${extra + 9}/${(prob.fd || 5) + 1}` : r2(prob.ans + 7.37 * extra));
+      extra++;
+    }
+    return Array.from(opts).sort(() => Math.random() - 0.5);
+  }
+
   function generateMathProblem() {
-    // Kurva Kesulitan: Semakin tinggi level, pengali angka semakin besar
-    let maxNum = 10 + (gameState.level * 6); 
-    let num1, num2, ans;
-    
-    // Tentukan operasi matematika untuk soal ini
+    const g = selectedGrade;
+    const ops = GRADE_OPS[g];
     let currentOp = selectedOp;
-    if (currentOp === 'all') {
-      const ops = ['+', '-', '*', '/', 'fraction', 'algebra', 'decimal'];
-      currentOp = ops[Math.floor(Math.random() * ops.length)];
-    }
-    
-    if (currentOp === '+') {
-      num1 = Math.floor(Math.random() * maxNum) + 1; num2 = Math.floor(Math.random() * maxNum) + 1; ans = num1 + num2;
-      gameState.question = `${num1} + ${num2} = ?`;
-    } else if (currentOp === '-') {
-      ans = Math.floor(Math.random() * maxNum) + 1; num2 = Math.floor(Math.random() * maxNum) + 1; num1 = ans + num2;
-      gameState.question = `${num1} - ${num2} = ?`;
-    } else if (currentOp === '*') {
-      num1 = Math.floor(Math.random() * (3 + (gameState.level * 2))) + 2; num2 = Math.floor(Math.random() * (3 + (gameState.level * 2))) + 2; ans = num1 * num2;
-      gameState.question = `${num1} x ${num2} = ?`;
-    } else if (currentOp === '/') {
-      num2 = Math.floor(Math.random() * (3 + (gameState.level * 2))) + 2; ans = Math.floor(Math.random() * (3 + (gameState.level * 2))) + 2; num1 = num2 * ans;
-      gameState.question = `${num1} : ${num2} = ?`;
-    } else if (currentOp === 'fraction') {
-      // Pecahan dengan penyebut sama (2, 3, 4, 5, 6)
-      let d = Math.floor(Math.random() * 5) + 2; 
-      let n1 = Math.floor(Math.random() * (d - 1)) + 1;
-      let n2 = Math.floor(Math.random() * (d - 1)) + 1;
-      let opF = Math.random() > 0.5 ? '+' : '-';
-      
-      if (opF === '-') {
-         if (n1 < n2) { let temp = n1; n1 = n2; n2 = temp; }
-      }
-      
-      let ansNum = opF === '+' ? n1 + n2 : n1 - n2;
-      
-      gameState.question = `${n1}/${d} ${opF} ${n2}/${d} = ?`;
-      
-      // Sederhanakan bentuk ke string untuk portal
-      ans = `${ansNum}/${d}`;
-      if (ansNum === 0) ans = "0";
-      if (ansNum === d) ans = "1";
-    } else if (currentOp === 'algebra') {
-      // Aljabar linier sederhana (x + a = b atau ax = b)
-      ans = Math.floor(Math.random() * (5 + gameState.level)) + 1;
-      let type = Math.floor(Math.random() * Math.min(2, gameState.level)); 
-      
-      if (type === 0 || gameState.level === 1) { // x + a = b
-          let a = Math.floor(Math.random() * 10) + 1;
-          let b = ans + a;
-          gameState.question = `x + ${a} = ${b}`;
-      } else { // ax = b
-          let a = Math.floor(Math.random() * 5) + 2;
-          let b = ans * a;
-          gameState.question = `${a}x = ${b}`;
-      }
-    } else if (currentOp === 'decimal') {
-      // Penjumlahan/pengurangan desimal 1 angka di belakang koma
-      let d1 = (Math.floor(Math.random() * (10 + gameState.level * 5)) + 1) / 10;
-      let d2 = (Math.floor(Math.random() * (10 + gameState.level * 5)) + 1) / 10;
-      let isAdd = Math.random() > 0.5;
-      
-      if (!isAdd && d1 < d2) { let temp = d1; d1 = d2; d2 = temp; }
-      let ansNum = isAdd ? (d1 + d2) : (d1 - d2);
-      ans = Math.round(ansNum * 10) / 10;
-      
-      gameState.question = `${d1} ${isAdd ? '+' : '-'} ${d2} = ?`;
-    }
-    
-    gameState.correctAnswer = ans;
-    
+    if (currentOp === 'all' || !ops.includes(currentOp)) currentOp = pick(ops);
+
+    const prob = genProblem(currentOp, g, gameState.level);
+    gameState.question = prob.q;
+    gameState.correctAnswer = prob.ans;
+    gameState.wrong = 0; // soal baru: hitungan kesalahan mulai dari nol lagi
+    gameState.options = buildOptions(prob);
+
     // Buka kotak jika kebetulan diminimize
-    if(isQuestionMinimized) toggleQuestion(); 
-    document.getElementById('ui-question').innerText = gameState.question;
+    if(isQuestionMinimized) toggleQuestion();
+    const qEl = document.getElementById('ui-question');
+    qEl.innerText = gameState.question;
+    qEl.style.fontSize = gameState.question.length > 18 ? '1.15rem' : gameState.question.length > 13 ? '1.5rem' : '';
     hasKey = false;
     const qLbl = document.getElementById('ui-question-label'); if(qLbl) qLbl.innerText = 'Cari Portal:';
     updateStatus();
-
-    let opts = new Set([ans]);
-    while(opts.size < 4) {
-      if(currentOp === 'fraction') {
-         // Opsi pengecoh pecahan
-         let d = parseInt(ans.toString().split('/')[1]) || Math.floor(Math.random()*3)+2;
-         let wNum = Math.floor(Math.random() * (d + 3));
-         let wStr = `${wNum}/${d}`;
-         if (wNum === 0) wStr = "0";
-         if (wNum === d) wStr = "1";
-         opts.add(wStr);
-      } else if (currentOp === 'decimal') {
-         // Opsi pengecoh desimal
-         let offset = (Math.floor(Math.random() * 5) + 1) / 10;
-         let w = ans + (offset * (Math.random() > 0.5 ? 1 : -1));
-         w = Math.round(w * 10) / 10;
-         if(w >= 0 && !isNaN(w)) opts.add(w);
-      } else {
-         // Opsi pengecoh angka biasa
-         let offset = Math.floor(Math.random() * (4 + gameState.level)) + 1;
-         let w = parseInt(ans) + (offset * (Math.random() > 0.5 ? 1 : -1));
-         if(w >= 0 && !isNaN(w)) opts.add(w);
-      }
-    }
-    gameState.options = Array.from(opts).sort(() => Math.random() - 0.5);
   }
 
   // --- THREE.JS ENGINE SETUP ---
@@ -587,7 +855,7 @@
     if (!el) return;
     const badge = (t) => `<span class="px-2.5 py-0.5 rounded-full bg-black/45 border border-white/30 text-white text-sm font-black num3d">${t}</span>`;
     let h = '';
-    h += badge(hasKey ? '🔑 Bawa ke kandang 🐔' : '🐔 Misi: dapatkan 🔑');
+    h += badge(keyItem ? '✨ Ambil 🔑 yang berputar' : hasKey ? '🔑 Bawa ke kandang 🐔' : '🐔 Misi: dapatkan 🔑');
     if (shieldHits > 0) h += badge('🛡️ ×' + shieldHits);
     if (orangePower) h += badge('🍊 Siap hancurkan');
     el.innerHTML = h;
@@ -644,6 +912,51 @@
   // --- MISI UTAMA: SELAMATKAN AYAM ---
   let cageData = null;
   let hasKey = false;
+  let playerFlight = null; // animasi terbang saat jawaban salah
+  let keyItem = null;      // kunci berputar yang harus diambil setelah jawaban benar
+  let levelPause = false;  // permainan dijeda saat layar perayaan tampil
+  let chickensSaved = 0;
+  let clearShownAt = 0;
+  let clearHideTimer = null;
+
+  function showRescueOverlay() {
+    chickensSaved++;
+    levelPause = true;
+    joyVector = { x: 0, y: 0 }; targetPosition = null;
+    document.getElementById('clear-count').innerText = chickensSaved;
+    // Konfeti
+    const box = document.getElementById('confetti');
+    const cols = ['#fbbf24', '#f43f5e', '#60a5fa', '#34d399', '#f472b6', '#fde68a', '#a78bfa'];
+    let h = '';
+    for (let i = 0; i < 46; i++) {
+      const w = 6 + Math.random() * 7;
+      h += `<i class="confetti-piece" style="left:${(Math.random() * 100).toFixed(1)}%;width:${w.toFixed(1)}px;height:${(w * 1.6).toFixed(1)}px;background:${cols[i % cols.length]};animation-duration:${(2.6 + Math.random() * 2.6).toFixed(2)}s;animation-delay:${(Math.random() * 2.4).toFixed(2)}s"></i>`;
+    }
+    box.innerHTML = h;
+    document.getElementById('screen-game').style.opacity = '0'; // HUD memudar di balik overlay
+    const ov = document.getElementById('screen-clear');
+    clearTimeout(clearHideTimer);
+    ov.classList.remove('hidden', 'leaving', 'show');
+    void ov.offsetWidth;            // paksa reflow agar transisi fade-in berjalan
+    ov.classList.add('show');
+    clearShownAt = performance.now();
+    playBeep('fanfare');
+  }
+
+  function continueAfterRescue() {
+    if (!levelPause || performance.now() - clearShownAt < 900) return; // tunggu animasi tombol muncul
+    levelPause = false;
+    const ov = document.getElementById('screen-clear');
+    ov.classList.add('leaving');     // mulai memudar; klik tidak lagi tertahan
+    ov.classList.remove('show');
+    document.getElementById('screen-game').style.opacity = '';
+    playBeep('start');
+    advanceLevel();                  // level baru tampak di balik overlay yang memudar
+    clearHideTimer = setTimeout(() => {
+      ov.classList.add('hidden'); ov.classList.remove('leaving');
+      document.getElementById('confetti').innerHTML = '';
+    }, 600);
+  }
 
   function createChicken() {
     const g = new THREE.Group();
@@ -673,6 +986,73 @@
     return g;
   }
 
+// Titik pada jalur (polyline) sejauh jarak d + arah hadap
+  function pathPoint(path, d) {
+    let rem = d, last = { x: path[0].x, z: path[0].z, ang: 0 };
+    for (let i = 1; i < path.length; i++) {
+      const dx = path[i].x - path[i-1].x, dz = path[i].z - path[i-1].z;
+      const len = Math.hypot(dx, dz), ang = Math.atan2(dx, dz);
+      if (rem <= len) { const k = len ? rem / len : 0; return { x: path[i-1].x + dx * k, z: path[i-1].z + dz * k, ang }; }
+      rem -= len; last = { x: path[i].x, z: path[i].z, ang };
+    }
+    return last;
+  }
+
+// --- KUNCI BERPUTAR (muncul setelah jawaban benar, harus diambil) ---
+  function openNeighbors(x, y) {
+    return [[1,0],[-1,0],[0,1],[0,-1]]
+      .filter(([a, b]) => currentMazeGrid[y + b] && currentMazeGrid[y + b][x + a] === 0)
+      .map(([a, b]) => ({ x: x + a, y: y + b }));
+  }
+
+  function createKeyMesh() {
+    const g = new THREE.Group();
+    const gold = new THREE.MeshStandardMaterial({ color: 0xffc928, emissive: 0xb07800, emissiveIntensity: 0.7, metalness: 0.7, roughness: 0.25 });
+    const body = new THREE.Group(); g.add(body);
+    const add = (geo, x, y, z, parent) => { const m = new THREE.Mesh(geo, gold); m.position.set(x, y, z); (parent || body).add(m); return m; };
+    add(new THREE.TorusGeometry(0.6, 0.2, 12, 24), 0, 1.15, 0);          // lingkar kunci
+    add(new THREE.BoxGeometry(0.2, 1.6, 0.2), 0, 0.0, 0);                // batang
+    add(new THREE.BoxGeometry(0.55, 0.2, 0.2), 0.34, -0.55, 0);          // gigi kunci
+    add(new THREE.BoxGeometry(0.4, 0.2, 0.2), 0.27, -0.2, 0);
+    body.scale.setScalar(1.35);
+    // Penanda di lantai & berkas cahaya agar mudah terlihat
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(1.5, 0.09, 8, 36),
+      new THREE.MeshBasicMaterial({ color: 0xffd54a, transparent: true, opacity: 0.75 }));
+    ring.rotation.x = Math.PI / 2; ring.position.y = 0.08; g.add(ring);
+    const beam = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 11, 20, 1, true),
+      new THREE.MeshBasicMaterial({ color: 0xffe27a, transparent: true, opacity: 0.16, side: THREE.DoubleSide, depthWrite: false }));
+    beam.position.y = 5.5; g.add(beam);
+    const light = new THREE.PointLight(0xffd54a, 2.2, 10); light.position.y = 2; g.add(light);
+    g.userData = { body, ring };
+    return g;
+  }
+
+  // Munculkan kunci di lorong yang berjarak beberapa petak dari pemain
+  function spawnKey() {
+    const s = gameState.cellSize;
+    const px = Math.round(playerMesh.position.x / s), py = Math.round(playerMesh.position.z / s);
+    const dist = new Map([[px + ',' + py, 0]]), q = [[px, py]], cells = [];
+    while (q.length) {
+      const [x, y] = q.shift(), d = dist.get(x + ',' + y);
+      cells.push({ x, y, d });
+      openNeighbors(x, y).forEach(n => {
+        const k = n.x + ',' + n.y;
+        if (!dist.has(k)) { dist.set(k, d + 1); q.push([n.x, n.y]); }
+      });
+    }
+    const cageCell = cageData ? { x: Math.round(cageData.x / s), y: Math.round(cageData.z / s) } : null;
+    const free = (c) => !(cageCell && c.x === cageCell.x && c.y === cageCell.y)
+      && !fruitsData.some(f => Math.round(f.x / s) === c.x && Math.round(f.z / s) === c.y);
+    let pool = cells.filter(c => c.d >= 3 && c.d <= 9 && free(c));
+    if (!pool.length) pool = cells.filter(c => c.d >= 2 && free(c));
+    if (!pool.length) pool = cells.filter(c => c.d >= 1 && free(c));
+    const pick = pool[Math.floor(Math.random() * pool.length)] || cells[cells.length - 1];
+    const mesh = createKeyMesh();
+    mesh.position.set(pick.x * s, 0, pick.y * s);
+    levelGroup.add(mesh);
+    keyItem = { mesh, x: pick.x * s, z: pick.y * s, phase: Math.random() * 6 };
+  }
+
   function createCage() {
     const g = new THREE.Group();
     const mat = (hex) => new THREE.MeshStandardMaterial({ color: hex, roughness: 0.6, metalness: 0.3 });
@@ -697,7 +1077,7 @@
     const shackle = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.05, 8, 14, Math.PI), gold);
     shackle.position.y = 0.2; lock.add(shackle);
     const chicken = createChicken(); chicken.position.set(0, 0.2, 0); g.add(chicken);
-    return { group: g, door, lock, chicken, head: chicken.userData.head, state: 'locked', t: 0, toastCd: 0, x: 0, z: 0 };
+    return { group: g, door, lock, chicken, head: chicken.userData.head, state: 'locked', t: 0, toastCd: 0, x: 0, z: 0, path: [], runLen: 0, runDur: 1.5 };
   }
 
   function advanceLevel() {
@@ -900,7 +1280,7 @@
     while(levelGroup.children.length > 0) { 
       levelGroup.remove(levelGroup.children[0]); 
     }
-    wallsData = []; portalsData = []; enemiesData = []; fruitsData = []; cageData = null; targetPosition = null;
+    wallsData = []; portalsData = []; enemiesData = []; fruitsData = []; cageData = null; playerFlight = null; keyItem = null; targetPosition = null;
 
     let s = gameState.cellSize;
     currentMazeGrid = generateMazeGrid(gameState.mazeSize);
@@ -970,21 +1350,22 @@
 
         // Label Angka (Lebih fleksibel ukurannya untuk Pecahan)
         const canvas = document.createElement('canvas');
-        canvas.width = 128; canvas.height = 128;
+        canvas.width = 256; canvas.height = 128;
         const ctx = canvas.getContext('2d');
         ctx.fillStyle = '#'+p.color.toString(16);
         
         let valStr = p.val.toString();
-        let fontSize = valStr.length > 2 ? 45 : 70; // Kecilkan font jika teks panjang (misal 3/4)
+        const vl = valStr.length;
+        let fontSize = vl <= 4 ? 70 : vl === 5 ? 60 : vl === 6 ? 52 : vl === 7 ? 46 : 40;
         ctx.font = `bold ${fontSize}px Arial`; 
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.fillText(valStr, 64, 64);
+        ctx.fillText(valStr, 128, 64);
         
         const tex = new THREE.CanvasTexture(canvas);
         const lblMat = new THREE.SpriteMaterial({ map: tex, transparent: true });
         const lblSprite = new THREE.Sprite(lblMat);
         lblSprite.position.set(0, s*0.7, 0);
-        lblSprite.scale.set(s, s, 1);
+        lblSprite.scale.set(s * 1.8, s * 0.9, 1);
         pGrp.add(lblSprite);
 
         portalsData.push({ 
@@ -1030,17 +1411,80 @@
       // Buah-buahan (kadang muncul di jalan labirin)
       const nearPortal = (x, y) => [[1,1],[gameState.mazeSize-2,1],[1,gameState.mazeSize-2],[gameState.mazeSize-2,gameState.mazeSize-2]]
         .some(([px,py]) => Math.abs(x-px) + Math.abs(y-py) < 3);
-      // Kandang ayam (misi utama): jauh dari titik awal & portal
-      let cagePool = emptySpots.filter(sp => !nearPortal(sp.x, sp.y) && (Math.abs(sp.x - center) + Math.abs(sp.y - center)) >= 4);
-      if (!cagePool.length) cagePool = emptySpots.filter(sp => !nearPortal(sp.x, sp.y));
-      if (!cagePool.length) cagePool = emptySpots;
+      // Kandang ayam (misi utama): diletakkan di ujung jalan buntu agar tidak menutup jalur labirin
+      const openNb = (x, y) => [[1,0],[-1,0],[0,1],[0,-1]]
+        .filter(([ddx, ddy]) => currentMazeGrid[y + ddy] && currentMazeGrid[y + ddy][x + ddx] === 0)
+        .map(([ddx, ddy]) => ({ x: x + ddx, y: y + ddy, dx: ddx, dy: ddy }));
+      const enemyCell = (x, y) => enemiesData.some(en => Math.round(en.x / s) === x && Math.round(en.z / s) === y);
+      const isOpen = (x, y) => currentMazeGrid[y] && currentMazeGrid[y][x] === 0;
+      const portalCells = [[1,1],[gameState.mazeSize-2,1],[1,gameState.mazeSize-2],[gameState.mazeSize-2,gameState.mazeSize-2]];
+      // Sel yang bisa dijangkau dari titik awal bila sel (bx,by) ditutup kandang
+      const reachWithout = (bx, by) => {
+        const seen = new Set([center + ',' + center]), q = [[center, center]];
+        while (q.length) {
+          const [qx, qy] = q.shift();
+          openNb(qx, qy).forEach(n => {
+            const k = n.x + ',' + n.y;
+            if (!seen.has(k) && !(n.x === bx && n.y === by)) { seen.add(k); q.push([n.x, n.y]); }
+          });
+        }
+        return seen;
+      };
+      // Kandang aman = tidak memutus jalan ke portal & punya sisi yang bisa dijangkau pemain
+      const cageSafe = (x, y) => {
+        const r = reachWithout(x, y);
+        return portalCells.every(([px, py]) => r.has(px + ',' + py)) && openNb(x, y).some(n => r.has(n.x + ',' + n.y));
+      };
+      const cands = [];
+      for (let yy = 1; yy < gameState.mazeSize - 1; yy++) {
+        for (let xx = 1; xx < gameState.mazeSize - 1; xx++) {
+          if (isOpen(xx, yy) && !nearPortal(xx, yy) && !enemyCell(xx, yy) && (Math.abs(xx - center) > 1 || Math.abs(yy - center) > 1)) cands.push({ x: xx, y: yy });
+        }
+      }
+      const far = (sp) => (Math.abs(sp.x - center) + Math.abs(sp.y - center)) >= 4;
+      const isDead = (sp) => openNb(sp.x, sp.y).length === 1;
+      let cagePool = cands.filter(sp => isDead(sp) && far(sp));                       // ujung buntu & jauh
+      if (!cagePool.length) cagePool = cands.filter(isDead);                          // ujung buntu mana saja
+      if (!cagePool.length) cagePool = cands.filter(sp => far(sp) && cageSafe(sp.x, sp.y)); // sel lain yang aman
+      if (!cagePool.length) cagePool = cands.filter(sp => cageSafe(sp.x, sp.y));
+      let cageSolid = true;
+      if (!cagePool.length) { // cadangan (praktis tidak pernah): jangan jadikan penghalang
+        cageSolid = false;
+        cagePool = cands.length ? cands : emptySpots;
+      }
       if (cagePool.length) {
         const cs = cagePool[Math.floor(Math.random() * cagePool.length)];
-        emptySpots.splice(emptySpots.indexOf(cs), 1);
+        const ci = emptySpots.findIndex(sp => sp.x === cs.x && sp.y === cs.y);
+        if (ci >= 0) emptySpots.splice(ci, 1);
         cageData = createCage();
         cageData.x = cs.x * s; cageData.z = cs.y * s;
         cageData.group.position.set(cageData.x, 0, cageData.z);
+
+        // Pintu kandang menghadap jalan keluar; jalur lari ayam menyusuri lorong (maks. 3 petak)
+        const reachable = reachWithout(cs.x, cs.y);
+        let exits = openNb(cs.x, cs.y).filter(n => reachable.has(n.x + ',' + n.y));
+        if (!exits.length) exits = openNb(cs.x, cs.y);
+        let path = [{ x: cageData.x, z: cageData.z }];
+        if (exits.length) {
+          const e0 = exits[0];
+          cageData.group.rotation.y = Math.atan2(e0.dx, e0.dy);
+          let prev = cs, cur = e0;
+          for (let i = 0; i < 3 && cur; i++) {
+            path.push({ x: cur.x * s, z: cur.y * s });
+            const nexts = openNb(cur.x, cur.y).filter(n => !(n.x === prev.x && n.y === prev.y));
+            prev = cur; cur = nexts[0];
+          }
+        } else {
+          path.push({ x: cageData.x, z: cageData.z + s * 2 });
+        }
+        cageData.path = path;
         levelGroup.add(cageData.group);
+
+        // Kandang padat: karakter & bola berduri tidak bisa menembus
+        if (cageSolid) {
+          const hw = 1.8;
+          wallsData.push({ minX: cageData.x - hw, maxX: cageData.x + hw, minZ: cageData.z - hw, maxZ: cageData.z + hw });
+        }
       }
       const fruitSpots = emptySpots.filter(sp => !nearPortal(sp.x, sp.y));
       ['banana', 'apple', 'orange'].forEach(type => {
@@ -1081,7 +1525,7 @@
     
     const portalColors = ['#f59e0b', '#3b82f6', '#ec4899', '#10b981'];
     const pLocs = [{x: 1, y: 1}, {x: size-2, y: 1}, {x: 1, y: size-2}, {x: size-2, y: size-2}];
-    if(!hasKey) pLocs.forEach((p, i) => {
+    if(portalsData.length) pLocs.forEach((p, i) => {
        ctx.fillStyle = portalColors[i];
        ctx.beginPath();
        ctx.arc(p.x * cellW + cellW/2, p.y * cellH + cellH/2, cellW/2.5, 0, Math.PI*2);
@@ -1131,6 +1575,17 @@
         ctx.arc(eMapX, eMapZ, cellW/2.5, 0, Math.PI*2);
         ctx.fill();
     });
+    // Kunci berputar (berdenyut)
+    if (keyItem) {
+        const kx = (keyItem.x / gameState.cellSize) * cellW + (cellW/2);
+        const kz = (keyItem.z / gameState.cellSize) * (cvs.height/size) + (cvs.height/size/2);
+        const pulse = 1 + Math.sin(performance.now() * 0.008) * 0.25;
+        ctx.fillStyle = '#ffd54a';
+        ctx.beginPath(); ctx.arc(kx, kz, cellW/2.2 * pulse, 0, Math.PI*2); ctx.fill();
+        ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(kx, kz, cellW/1.6 * pulse, 0, Math.PI*2); ctx.stroke();
+    }
+
 
     // Buah
     const fruitColors = { banana: '#ffe135', apple: '#e02424', orange: '#ff8a1c' };
@@ -1287,14 +1742,15 @@
   
   function animate() {
     requestAnimationFrame(animate);
-    let delta = clock.getDelta();
+    let delta = Math.min(clock.getDelta(), 0.05);
 
-    if(gameState.isPlaying && playerMesh) {
+    if(gameState.isPlaying && playerMesh && !levelPause) {
       let speed = gameState.cellSize * 3.5 * delta; 
       let pRadius = playerMesh.userData.radius; 
       
       let moveX = 0, moveZ = 0;
-      let isManual = keys.up || keys.down || keys.left || keys.right || joyVector.x !== 0 || joyVector.y !== 0;
+      const flying = !!playerFlight;
+      let isManual = !flying && (keys.up || keys.down || keys.left || keys.right || joyVector.x !== 0 || joyVector.y !== 0);
 
       if (isManual) {
         targetPosition = null;
@@ -1311,7 +1767,7 @@
         moveX = (inputX * c + inputZ * s) * speed;
         moveZ = (-inputX * s + inputZ * c) * speed;
       } 
-      else if (targetPosition) {
+      else if (!flying && targetPosition) {
         let dx = targetPosition.x - playerMesh.position.x;
         let dz = targetPosition.z - playerMesh.position.z;
         let dist = Math.sqrt(dx*dx + dz*dz);
@@ -1337,7 +1793,33 @@
       }
 
       // Animasi berjalan & menghadap arah gerak
-      animatePlayer(actualMoveX, actualMoveZ, delta);
+      if (!flying) animatePlayer(actualMoveX, actualMoveZ, delta);
+
+      // Terbang ke atas lalu turun di posisi tengah (setelah jawaban salah)
+      if (playerFlight) {
+        const f = playerFlight, pu = playerMesh.userData;
+        f.t += delta;
+        const H = 26, T1 = 0.5, T2 = 1.0, T3 = 1.6;
+        if (f.t < T1) {
+          const k = f.t / T1;
+          playerMesh.position.set(f.sx, H * (1 - (1 - k) * (1 - k)), f.sz);
+        } else if (f.t < T2) {
+          const k = (f.t - T1) / (T2 - T1), e = k * k * (3 - 2 * k);
+          playerMesh.position.set(f.sx + (f.cx - f.sx) * e, H, f.sz + (f.cz - f.sz) * e);
+        } else if (f.t < T3) {
+          const k = (f.t - T2) / (T3 - T2);
+          playerMesh.position.set(f.cx, H * (1 - k * k), f.cz);
+        } else {
+          playerMesh.position.set(f.cx, 0, f.cz);
+          playerFlight = null; playerInvulnerable = 1.2; cameraShake = Math.max(cameraShake, 0.3); playBeep('start');
+        }
+        if (playerFlight) {
+          playerMesh.rotation.y += 9 * delta;
+          pu.armL.rotation.x = -2.8 + Math.sin(f.t * 22) * 0.35; pu.armR.rotation.x = -2.8 - Math.sin(f.t * 22) * 0.35;
+          pu.legL.rotation.x = Math.sin(f.t * 18) * 0.6;        pu.legR.rotation.x = -Math.sin(f.t * 18) * 0.6;
+          pu.model.position.y = 0;
+        }
+      }
 
       playerLight.position.set(playerMesh.position.x, playerMesh.position.y + 2.5, playerMesh.position.z);
 
@@ -1349,21 +1831,22 @@
         
         let dx = playerMesh.position.x - p.x;
         let dz = playerMesh.position.z - p.z;
-        if(Math.sqrt(dx*dx + dz*dz) < p.radius) {
+        if(!playerFlight && Math.sqrt(dx*dx + dz*dz) < p.radius) {
           if(p.val === gameState.correctAnswer) {
             playBeep('win'); showFeedback("BENAR!", true);
-            hasKey = true;
-            // Semua portal lenyap; misi berikutnya: bawa kunci ke kandang ayam
+            // Semua portal lenyap; sebuah kunci berputar muncul & harus diambil dulu
             portalsData.forEach(q => { if (q.mesh1.parent) levelGroup.remove(q.mesh1.parent); });
             portalsData = [];
+            hasKey = false;
+            spawnKey();
             document.getElementById('ui-question-label').innerText = 'Misi:';
-            document.getElementById('ui-question').innerText = '🔑 Selamatkan ayam!';
+            document.getElementById('ui-question').innerText = '🔑 Ambil kuncinya!';
             if(isQuestionMinimized) toggleQuestion();
-            showToast('🔑 Kunci didapat! Bawa ke kandang ayam');
+            showToast('✨ Kunci muncul! Cari dan ambil kunci yang berputar');
             updateStatus(); drawMinimapBackground();
           } else {
             playBeep('wrong'); showFeedback("SALAH!", false);
-            gameState.hp -= 20; cameraShake = 0.6;
+            gameState.hp -= 20; gameState.wrong++; cameraShake = 0.6;
             
             const dmgOverlay = document.getElementById('damage-overlay');
             dmgOverlay.classList.add('active');
@@ -1371,11 +1854,15 @@
 
             updateUI();
             
-            if(gameState.hp <= 0) return gameOver();
+            if(gameState.wrong >= WRONG_LIMIT) return gameOver('wrong');
+            if(gameState.hp <= 0) return gameOver('hp');
             else {
+              showToast(`✖ Salah ${gameState.wrong}/${WRONG_LIMIT} — sisa kesempatan ${WRONG_LIMIT - gameState.wrong}`);
+              // Terbang ke atas, lalu turun kembali di posisi tengah
               let center = Math.floor(gameState.mazeSize/2);
-              playerMesh.position.set(center * gameState.cellSize, 0, center * gameState.cellSize);
-              targetPosition = null; 
+              playerFlight = { t: 0, sx: playerMesh.position.x, sz: playerMesh.position.z,
+                               cx: center * gameState.cellSize, cz: center * gameState.cellSize };
+              targetPosition = null;
             }
           }
           break;
@@ -1397,7 +1884,7 @@
         e.mesh.rotation.x += e.vz * delta * rollSpeed;
         e.mesh.rotation.z -= e.vx * delta * rollSpeed;
 
-        if(playerInvulnerable <= 0) {
+        if(playerInvulnerable <= 0 && !playerFlight) {
             let dx = playerMesh.position.x - e.mesh.position.x;
             let dz = playerMesh.position.z - e.mesh.position.z;
             if(Math.sqrt(dx*dx + dz*dz) < (pRadius + e.radius)) {
@@ -1421,7 +1908,7 @@
                 setTimeout(() => dmgOverlay.classList.remove('active'), 300);
 
                 updateUI();
-                if(gameState.hp <= 0) return gameOver();
+                if(gameState.hp <= 0) return gameOver('hp');
             }
         }
       }
@@ -1434,7 +1921,7 @@
         f.mesh.rotation.y += 2 * delta;
         f.mesh.position.y = f.baseY + Math.sin(tNow * 1.6 + f.phase) * 0.25;
         const fdx = playerMesh.position.x - f.x, fdz = playerMesh.position.z - f.z;
-        if (Math.sqrt(fdx*fdx + fdz*fdz) < pRadius + 0.9) {
+        if (!playerFlight && Math.sqrt(fdx*fdx + fdz*fdz) < pRadius + 0.9) {
           collectFruit(f.type);
           levelGroup.remove(f.mesh);
           fruitsData.splice(i, 1);
@@ -1442,6 +1929,24 @@
       }
       const shBubble = playerMesh.userData.shield;
       if (shBubble) { shBubble.visible = shieldHits > 0; shBubble.scale.setScalar(1 + Math.sin(tNow * 3) * 0.04); }
+
+      // Kunci berputar: melayang, berputar, dan bisa diambil
+      if (keyItem) {
+        const ku = keyItem.mesh.userData;
+        ku.body.rotation.y += 3.2 * delta;
+        ku.body.position.y = 2.1 + Math.sin(tNow * 1.6 + keyItem.phase) * 0.3;
+        ku.ring.scale.setScalar(1 + Math.sin(tNow * 3) * 0.08);
+        const kdx = playerMesh.position.x - keyItem.x, kdz = playerMesh.position.z - keyItem.z;
+        if (!playerFlight && Math.sqrt(kdx*kdx + kdz*kdz) < pRadius + 1.3) {
+          levelGroup.remove(keyItem.mesh); keyItem = null;
+          hasKey = true;
+          playBeep('win');
+          document.getElementById('ui-question-label').innerText = 'Misi:';
+          document.getElementById('ui-question').innerText = '🐔 Bawa kunci ke kandang!';
+          showToast('🔑 Kunci didapat! Bawa ke kandang ayam');
+          updateStatus();
+        }
+      }
 
       // Kandang ayam: ayam mematuk, kunci membuka, ayam diselamatkan
       if (cageData) {
@@ -1452,12 +1957,19 @@
           cd.chicken.rotation.y = Math.sin(tNow * 1.3) * 0.5;
           cd.head.rotation.x = Math.max(0, Math.sin(tNow * 4)) * 0.7;
           if (cd.toastCd > 0) cd.toastCd -= delta;
-          if (cdist < pRadius + 1.9) {
+          if (!playerFlight && cdist < pRadius + 2.5) {
             if (hasKey) {
               hasKey = false; cd.state = 'opening'; cd.t = 0;
+              // Ayam dilepas ke dunia & berlari jauh menyusuri lorong
+              cd.group.remove(cd.chicken);
+              cd.chicken.position.set(cd.x, 0.2, cd.z);
+              levelGroup.add(cd.chicken);
+              let tot = 0;
+              for (let i = 1; i < cd.path.length; i++) tot += Math.hypot(cd.path[i].x - cd.path[i-1].x, cd.path[i].z - cd.path[i-1].z);
+              cd.runLen = tot; cd.runDur = Math.max(1.4, tot / 6.5);
               updateStatus(); playBeep('win'); showToast('🔑 Kandang terbuka! Ayam bebas!');
             } else if (cd.toastCd <= 0) {
-              showToast('🔒 Kandang terkunci! Jawab soal untuk dapat kunci');
+              showToast(keyItem ? '🔒 Terkunci! Ambil dulu kunci yang berputar' : '🔒 Kandang terkunci! Jawab soal untuk dapat kunci');
               cd.toastCd = 2.5;
             }
           }
@@ -1466,15 +1978,16 @@
           cd.door.rotation.x = -Math.min(cd.t / 0.7, 1) * 1.6;
           cd.lock.visible = false;
           if (cd.t > 0.7) {
-            const pr = Math.min((cd.t - 0.7) / 1.1, 1);
-            cd.chicken.position.z = pr * 3.4;
-            cd.chicken.position.y = 0.2 + Math.abs(Math.sin(pr * Math.PI * 3)) * 0.8;
-            cd.chicken.rotation.y = pr * Math.PI * 4;
+            const u = Math.min((cd.t - 0.7) / cd.runDur, 1);
+            const d = cd.runLen * (1 - Math.pow(1 - u, 1.5));
+            const pos = pathPoint(cd.path, d);
+            const hop = u < 1 ? Math.abs(Math.sin(d * 1.9)) * 0.75 : Math.abs(Math.sin(tNow * 2.5)) * 0.15;
+            cd.chicken.position.set(pos.x, 0.2 + hop, pos.z);
+            cd.chicken.rotation.y = pos.ang;
           }
-          if (cd.t >= 1.8) {
+          if (cd.t >= 0.7 + cd.runDur + 0.6) {
             cd.state = 'done';
-            playBeep('win');
-            advanceLevel();
+            showRescueOverlay();
           }
         }
       }
@@ -1506,6 +2019,8 @@
 
       updateMinimapPlayer();
 
+    } else if (gameState.isPlaying && levelPause) {
+      // Dijeda (layar perayaan): tidak ada pembaruan permainan
     } else {
       // SAAT DI LOBI: Kamera Berputar Otomatis
       const time = Date.now() * 0.0003;
@@ -1525,6 +2040,7 @@
 
   // --- STARTUP ---
   window.onload = () => {
+    setGrade(selectedGrade);
     showStart();
     animate();
   };
